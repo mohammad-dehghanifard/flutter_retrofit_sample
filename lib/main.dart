@@ -2,15 +2,17 @@ import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_nova/api/web_service.dart';
+import 'package:flutter_nova/api/category_api_provider.dart';
 import 'package:flutter_nova/models/category_model.dart';
+
 
 void main() async {
   final Dio dio = Dio();
-  final ClientWebService webService = ClientWebService(dio);
-  Map<String,dynamic> category = CategoryModel(categoryName: "2محصولات ورزشی",description: "2محصولات ورزشی شیک").toJson();
-  final result = await webService.createCategory(category);
-  log(result.categoryName!);
+  final CategoryApiProvider apiProvider = CategoryApiProvider(dio);
+  // final Map<String,dynamic> category = CategoryModel(categoryName: "لوازم خانه",description: "دسته بندی لوازم خانه").toJson();
+  // final result = await apiProvider.createCat(category);
+  final result = await apiProvider.geCategory(1479);
+  print(result.categoryName);
   runApp(const MyApp());
 }
 
